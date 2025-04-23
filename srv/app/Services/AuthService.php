@@ -1,10 +1,11 @@
 <?php
-namespace App\Services\Auth;
+namespace App\Services;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthService
 {
@@ -16,23 +17,24 @@ class AuthService
             'password' => Hash::make($data['password']),
         ]);
 
-        Auth::login($user);
+        $token = JWTAuth::fromUser($user);
 
-        return response()->json(['message' => 'Регистрация успешна', 'user' => $user]);
+        return response()->json([
+            'message' => 'Успешная регистрация',
+            'token' => $token,
+            'user' => $user
+        ]);
     }
 
     public function login(array $data)
     {
-        if (!Auth::attempt($data)) {
-            return response()->json(['message' => 'Неверные данные'], 401);
+        if (!$token = auth()->attempt($data)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return response()->json(['message' => 'Успешный вход', 'user' => Auth::user()]);
-    }
-
-    public function logout(Request $request)
-    {
-        Auth::logout();
-        return response()->json(['message' => 'Выход выполнен']);
+        return response()->json([
+            'token' => $token,
+            'user'  => auth()->user()
+        ]);
     }
 }

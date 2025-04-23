@@ -2,10 +2,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use srv\App\Http\Requests\Auth\RegisterRequest;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Services\Auth\AuthService;
-use Illuminate\Http\Request;
+use App\Services\AuthService;
+
 
 class AuthController extends Controller
 {
@@ -21,8 +21,5 @@ class AuthController extends Controller
         return $this->authService->login($request->validated());
     }
 
-    public function logout(Request $request)
-    {
-        return $this->authService->logout($request);
-    }
+
 }
