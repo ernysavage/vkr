@@ -2,10 +2,13 @@
 module.exports = {
   content: [
     "./index.html",
-    "./src/**/*.{vue,js,ts,jsx,tsx}", // Make sure the paths match your project structure
+    "./src/**/*.{vue,js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Inter', 'sans-serif'],
+      },
       animation: {
         'fade-in-up': 'fadeInUp 0.5s ease-out',
       },
@@ -24,4 +27,4 @@ module.exports = {
     },
   },
   plugins: [],
-};
+}

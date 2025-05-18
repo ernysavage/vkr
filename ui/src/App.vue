@@ -1,8 +1,8 @@
-<!-- ui/src/App.vue -->
 <template>
+  <Header />
   <router-view />
 </template>
 
 <script setup>
-// ничего не нужно
+import Header from '@/components/Header.vue'
 </script>
